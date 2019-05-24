@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 import Gallery from './components/Gallery';
-import Title from './components/Title';
+import Header from './components/Header';
 
 
 class App extends Component {
   
   state = {
-    title: "React Gallery Title"
+    title: "React Gallery"
   }
 
 
   componentDidMount() {
-
+    // fetch data and add to state
   }
 
   render() {
     return (
-      <div className="App">
-        <Title title={this.state.title}/>
+      <div className="container">
+        <Header title={this.state.title}/>
         <Gallery />
       </div>
     );

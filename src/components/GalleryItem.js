@@ -1,9 +1,9 @@
 import React from 'react';
 
-const GalleryItem = (props) => {
+const GalleryItem = (props => {
   return (
-    <p>Gallery Item</p>
-  )
-} 
+    <p>placeholder</p>
+  );
+}
 
 export default GalleryItem;
