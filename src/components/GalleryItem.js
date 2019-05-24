@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GalleryItem = (props => {
+const GalleryItem = (props) => {
   return (
     <p>placeholder</p>
   );
