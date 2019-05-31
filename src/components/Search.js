@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class Search extends Component {
   state = {
 
   }
+  
   render(){
     return (
       <form className="search-form">
