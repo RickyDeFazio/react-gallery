@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {
   BrowserRouter,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 import Gallery from './components/Gallery';
 import Nav from './components/Nav';
 import apiKey from './config';
-import Search from './components/Search';
+import SearchBar from './components/SearchBar';
+import PageNotFound from './components/PageNotFound';
 
 class App extends Component {
   
@@ -20,8 +22,8 @@ class App extends Component {
   }
 
 
-  handleSearch = (query = 'cats, dogs, computers') => {
-    fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&format=json&nojsoncallback=1&extras=url_o&per_page=16`)
+  handleSearch = (query = 'cats') => {
+    fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&format=json&nojsoncallback=1&extras=url_o&per_page=24`)
       .then(res => res.json())
       .then(data => this.setState({ 
         photos: data.photos.photo,
@@ -35,10 +37,15 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="container">
-          <Search onSearch={this.handleSearch} />
+          <SearchBar onSearch={this.handleSearch} />
           <Nav />
-          <Route path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos}/>} />
+          <Switch>
+            <Route path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos}/>} />
+  
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
+
       </BrowserRouter>
     );
   } 
