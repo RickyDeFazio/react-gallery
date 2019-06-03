@@ -4,20 +4,30 @@ import {
   Route
 } from 'react-router-dom';
 import Gallery from './components/Gallery';
-import Header from './components/Header';
+import Nav from './components/Nav';
 import apiKey from './config';
+import Search from './components/Search';
 
 class App extends Component {
   
   state = {
-    title: "React Gallery",
-    photos: []
+    photos: [],
+    isLoading: true
   }
 
   componentDidMount() {
-    fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&tags=cat,dog,computer&api_key=${apiKey}&format=json&nojsoncallback=1&extras=url_o&per_page=16`)
+    this.handleSearch();
+  }
+
+
+  handleSearch = (query = 'cats, dogs, computers') => {
+    fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&format=json&nojsoncallback=1&extras=url_o&per_page=16`)
       .then(res => res.json())
-      .then(data => this.setState( { photos: data.photos.photo } ))
+      .then(data => this.setState({ 
+        photos: data.photos.photo,
+        isLoading: false
+       }))
+      .catch(err => console.log("Error fetching and parsing data", err));
   }
 
 
@@ -25,8 +35,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="container">
-          <Header title={this.state.title}/>
-          <Route path="/" render={() => <Gallery photos={this.state.photos}/>} />
+          <Search onSearch={this.handleSearch} />
+          <Nav />
+          <Route path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos}/>} />
         </div>
       </BrowserRouter>
     );
