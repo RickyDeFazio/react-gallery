@@ -28,7 +28,6 @@ const Gallery = (props) => {
         {galleryItemComponents}
       </ul>
     </div>
-
   )
 }
 

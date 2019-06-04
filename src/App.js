@@ -32,13 +32,16 @@ class App extends Component {
       .catch(err => console.log("Error fetching and parsing data", err));
   }
 
+  handleNav = (query) => {
+    this.handleSearch(query);
+  }
 
   render() {
     return (
       <BrowserRouter>
         <div className="container">
           <SearchBar onSearch={this.handleSearch} />
-          <Nav />
+          <Nav handleButton={this.handleNav}/>
           <Switch>
             <Route path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos}/>} />
   
