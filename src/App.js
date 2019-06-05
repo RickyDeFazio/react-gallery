@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Provider } from './components/Context';
 import {
   BrowserRouter,
   Route,
@@ -45,26 +46,35 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="container">
-          <Search onSearch={this.handleSearch} />
-          <Nav handleButton={this.handleNav}/>
-          <Switch>
+      <Provider value={{
+        photos: this.state.photos,
+        query: this.state.query,
+        actions: {
+          nav: this.handleNav,
+          search: this.handleSearch
+        }
+      }}>
+        <BrowserRouter>
+          <div className="container">
+            <Search onSearch={this.handleSearch} />
+            <Nav />
+            <Switch>
 
-            <Route exact path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery title={this.state.query.toUpperCase()} photos={this.state.photos}/>} />
-  
-            <Route path="/cats" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery title={this.state.query.toUpperCase()} photos={this.state.photos}/>} />
+              <Route exact path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
+    
+              <Route path="/cats" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
 
-            <Route path="/dogs" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery title={this.state.query.toUpperCase()} photos={this.state.photos}/>} />
+              <Route path="/dogs" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
 
-            <Route path="/birds" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery title={this.state.query.toUpperCase()} photos={this.state.photos}/>} />
+              <Route path="/birds" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
 
-            <Route path="/search/:topic" render={() => <Gallery title={this.state.query.toUpperCase()} photos={this.state.photos}/>} />
-            
-            <Route component={PageNotFound} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+              <Route path="/search/:topic" render={() => <Gallery photos={this.state.photos} />} />
+              
+              <Route component={PageNotFound} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   } 
 }
