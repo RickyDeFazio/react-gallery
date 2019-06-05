@@ -23,7 +23,7 @@ const Gallery = (props) => {
   }
   return (
     <div className="photo-container">
-      <h3>{results.length > 0 ? "Choose Wisely..." : null}</h3>
+      <h3>{results.length > 0 ? props.title : null}</h3>
       <ul>
         {galleryItemComponents}
       </ul>
