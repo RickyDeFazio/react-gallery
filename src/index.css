@@ -1,3 +1,31 @@
+html {
+  background-color: lightgrey;
+}
+
+.heading {
+  font-size: 5em;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-family: fantasy, cursive, sans-serif;
+  text-shadow: 3px 3px white;
+}
+
+.title {
+  font-size: 1.75em;
+  font-family: fantasy, cursive, sans-serif;
+}
+
+div.photo-container {
+  border: 3px solid black;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+input.search {
+  background-color: darkgrey;
+  border: grey;
+}
+
 body {
   text-align: center;
   font-family: 'Open Sans', sans-serif;

@@ -16,6 +16,7 @@ class Search extends Component {
     let topic = `/search/${this.query.value}`;
     this.props.history.push(`${topic}`);
     e.currentTarget.reset();
+    this.props.loadChange();
   }
 
   render(){

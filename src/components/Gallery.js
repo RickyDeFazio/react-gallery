@@ -25,7 +25,7 @@ const Gallery = (props) => {
     <Consumer>
       {context => (
         <div className="photo-container">
-          <h3>{results.length > 0 ? context.query.toUpperCase() : null}</h3>
+          <h3 className="title">{results.length > 0 ? context.query.toUpperCase() : null}</h3>
           <ul>
             {galleryItemComponents}
           </ul>

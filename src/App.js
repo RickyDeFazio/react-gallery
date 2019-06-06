@@ -44,6 +44,10 @@ class App extends Component {
     });
   }
 
+  changeLoading = () => {
+    this.setState({isLoading: true});
+  }
+
   render() {
     return (
       <Provider value={{
@@ -56,7 +60,8 @@ class App extends Component {
       }}>
         <BrowserRouter>
           <div className="container">
-            <Search onSearch={this.handleSearch} />
+            <h1 className="heading">React Gallery</h1>
+            <Search loadChange={this.changeLoading} onSearch={this.handleSearch} />
             <Nav />
             <Switch>
 
@@ -68,7 +73,7 @@ class App extends Component {
 
               <Route path="/birds" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
 
-              <Route path="/search/:topic" render={() => <Gallery photos={this.state.photos} />} />
+              <Route path="/search/:topic" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
               
               <Route component={PageNotFound} />
             </Switch>
