@@ -13,6 +13,7 @@ html {
 .title {
   font-size: 1.75em;
   font-family: fantasy, cursive, sans-serif;
+  text-shadow: 1px 1px white;
 }
 
 div.photo-container {
