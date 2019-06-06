@@ -19,11 +19,12 @@ div.photo-container {
   border: 3px solid black;
   padding-left: 25px;
   padding-right: 25px;
+  background-color: darkgrey;
 }
 
 input.search {
   background-color: darkgrey;
-  border: grey;
+  border: 1px solid darkgrey;
 }
 
 body {
