@@ -1,11 +1,9 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
 import NotFound from './NotFound';
-import {Consumer} from './Context';
 
-const Gallery = (props) => {
-  const results = props.photos;
-
+const Gallery = ({ photos, query }) => {
+  const results = photos;
   let galleryItemComponents;
   if (results.length > 0) {
     galleryItemComponents = results.map((photo, i) => {
@@ -21,17 +19,14 @@ const Gallery = (props) => {
   } else {
     galleryItemComponents = <NotFound />
   }
+  
   return (
-    <Consumer>
-      {context => (
-        <div className="photo-container">
-          <h3 className="title">{results.length > 0 ? context.query.toUpperCase() : null}</h3>
-          <ul>
-            {galleryItemComponents}
-          </ul>
-        </div>
-      )}
-    </Consumer>
+    <div className="photo-container">
+      <h3 className="title">{results.length > 0 ? query.toUpperCase() : null}</h3>
+      <ul>
+        {galleryItemComponents}
+      </ul>
+    </div>
   )
 }
 

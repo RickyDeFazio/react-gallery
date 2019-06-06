@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Provider } from './components/Context';
 import {
   BrowserRouter,
   Route,
@@ -23,7 +22,6 @@ class App extends Component {
     this.handleSearch();
   }
 
-
   handleSearch = (query = 'computers') => {
     fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&tags=${query}&api_key=${apiKey}&format=json&nojsoncallback=1&extras=url_o&per_page=24`)
       .then(res => res.json())
@@ -34,7 +32,6 @@ class App extends Component {
        }))
       .catch(err => console.log("Error fetching and parsing data", err));
   }
-
 
   handleNav = (query) => {
     this.handleSearch(query);
@@ -49,37 +46,31 @@ class App extends Component {
   }
 
   render() {
+
+    const { query, photos, isLoading } = this.state;
+
     return (
-      <Provider value={{
-        photos: this.state.photos,
-        query: this.state.query,
-        actions: {
-          nav: this.handleNav,
-          search: this.handleSearch
-        }
-      }}>
-        <BrowserRouter>
-          <div className="container">
-            <h1 className="heading">React Gallery</h1>
-            <Search loadChange={this.changeLoading} onSearch={this.handleSearch} />
-            <Nav />
-            <Switch>
+      <BrowserRouter>
+        <div className="container">
+          <h1 className="heading">React Gallery</h1>
+          <Search loadChange={this.changeLoading} onSearch={this.handleSearch} />
+          <Nav buttonClick={this.handleNav} />
+          <Switch>
 
-              <Route exact path="/" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
-    
-              <Route path="/cats" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
+            <Route exact path="/" render={() => (isLoading) ? <p>Loading...</p> : <Gallery query={query} photos={photos} />} />
+  
+            <Route path="/cats" render={() => (isLoading) ? <p>Loading...</p> : <Gallery query={query} photos={photos} />} />
 
-              <Route path="/dogs" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
+            <Route path="/dogs" render={() => (isLoading) ? <p>Loading...</p> : <Gallery query={query} photos={photos} />} />
 
-              <Route path="/birds" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
+            <Route path="/birds" render={() => (isLoading) ? <p>Loading...</p> : <Gallery query={query} photos={photos} />} />
 
-              <Route path="/search/:topic" render={() => (this.state.isLoading) ? <p>Loading...</p> : <Gallery photos={this.state.photos} />} />
-              
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </Provider>
+            <Route path="/search/:topic" render={() => (isLoading) ? <p>Loading...</p> : <Gallery query={query} photos={photos} />} />
+            
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   } 
 }
