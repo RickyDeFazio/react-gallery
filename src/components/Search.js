@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
   state = {
     searchText: ''
   }
+
+  static propTypes = { 
+    onSearch: PropTypes.func,
+    history: PropTypes.object,
+    loadChange: PropTypes.func  
+  };
 
   onSearchChange = e => {
     this.setState({searchText: e.target.value});

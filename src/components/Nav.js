@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
  
 const Nav = ({ buttonClick }) => {
   return (
@@ -11,6 +12,10 @@ const Nav = ({ buttonClick }) => {
       </ul>
     </nav>
   );
+}
+
+Nav.propTypes = {
+  buttonClick: PropTypes.func
 }
 
 export default Nav;

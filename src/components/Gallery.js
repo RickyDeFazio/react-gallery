@@ -1,6 +1,7 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
 import NotFound from './NotFound';
+import PropTypes from 'prop-types';
 
 const Gallery = ({ photos, query }) => {
   const results = photos;
@@ -29,5 +30,10 @@ const Gallery = ({ photos, query }) => {
     </div>
   )
 }
+
+Gallery.propTypes = {
+  photos: PropTypes.array,
+  query: PropTypes.string
+};
 
 export default Gallery;
